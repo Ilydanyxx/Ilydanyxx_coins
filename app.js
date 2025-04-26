@@ -10,12 +10,12 @@ const orderRoutes = require('./project-root/routes/orders');
 dotenv.config();
 const app = express();
 
-// Додаємо статичну папку для обробки файлів з views
-app.use(express.static('views'));
-app.use(express.static('public'));
-
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
+
+// Додаємо статичну папку для обробки файлів з views
+app.use(express.static(__dirname + '/views'));
 
 console.log(process.env.MONGO_URI);
 
