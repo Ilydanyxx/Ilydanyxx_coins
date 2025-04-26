@@ -16,10 +16,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Оголошуємо папку для статичних ресурсів
+// Статичні папки
 app.use(express.static(path.join(__dirname, 'project-root/public')));
-
-// Оголошуємо папку для views як статичну
 app.use(express.static(path.join(__dirname, 'project-root/views')));
 
 // API роутинг
@@ -28,7 +26,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
-// Маршрути для HTML сторінок
+// Роутинг сторінок
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'project-root/views/index.html'));
 });
@@ -45,7 +43,7 @@ app.get('/register.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'project-root/views/register.html'));
 });
 
-// Підключення до MongoDB
+// MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
