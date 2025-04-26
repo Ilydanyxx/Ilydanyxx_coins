@@ -6,3 +6,4 @@ router.get('/', getAllProducts);
 router.post('/', addProduct);
 
 module.exports = router;
+

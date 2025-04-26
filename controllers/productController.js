@@ -11,3 +11,4 @@ exports.addProduct = async (req, res) => {
   await product.save();
   res.status(201).json({ message: 'Продукт додано' });
 };
+
