@@ -10,4 +10,3 @@ fetch('https://ilydanyxx_coins.onrender.com/api/products')
     });
   });
 
-  
