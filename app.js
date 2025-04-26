@@ -41,3 +41,15 @@ app.get('/admin.html', (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
+app.get('/index.html', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/login.html', (req, res) => {
+  res.sendFile(__dirname + '/views/login.html');
+});
+
+app.get('/register.html', (req, res) => {
+  res.sendFile(__dirname + '/views/register.html');
+});
+
