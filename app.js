@@ -5,10 +5,10 @@ const cors = require('cors');
 const path = require('path');
 
 // Імпорт роутів
-const authRoutes = require('./project-root/routes/auth');
-const productRoutes = require('./project-root/routes/products');
-const userRoutes = require('./project-root/routes/users');
-const orderRoutes = require('./project-root/routes/orders');
+const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/products');
+const userRoutes = require('./routes/users');
+const orderRoutes = require('./routes/orders');
 
 dotenv.config();
 const app = express();
@@ -17,8 +17,8 @@ app.use(cors());
 app.use(express.json());
 
 // Статичні папки
-app.use(express.static(path.join(__dirname, 'project-root/public')));
-app.use(express.static(path.join(__dirname, 'project-root/views')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 // API роутинг
 app.use('/api/auth', authRoutes);
@@ -28,22 +28,27 @@ app.use('/api/orders', orderRoutes);
 
 // Роутинг сторінок
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'project-root/views/index.html'));
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 app.get('/admin.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'project-root/views/admin.html'));
+  res.sendFile(path.join(__dirname, 'views', 'admin.html'));
 });
 
 app.get('/login.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'project-root/views/login.html'));
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
 app.get('/register.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'project-root/views/register.html'));
+  res.sendFile(path.join(__dirname, 'views', 'register.html'));
 });
 
-// MongoDB
+// Обробка всіх інших запитів
+app.get('*', (req, res) => {
+  res.status(404).send('Page not found');
+});
+
+// Підключення до MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
