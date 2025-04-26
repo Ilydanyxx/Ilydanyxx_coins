@@ -16,22 +16,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// !!! Ось так треба правильно вказувати шляхи:
+// Оголошуємо папку для статичних ресурсів
 app.use(express.static(path.join(__dirname, 'project-root/public')));
 
-// Роутинг API
+// Оголошуємо папку для views як статичну
+app.use(express.static(path.join(__dirname, 'project-root/views')));
+
+// API роутинг
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
-// Сторінки (views)
-app.get('/admin.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'project-root/views/admin.html'));
+// Маршрути для HTML сторінок
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'project-root/views/index.html'));
 });
 
-app.get('/index.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'project-root/views/index.html'));
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'project-root/views/admin.html'));
 });
 
 app.get('/login.html', (req, res) => {
@@ -42,7 +45,7 @@ app.get('/register.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'project-root/views/register.html'));
 });
 
-// Підключення до БД
+// Підключення до MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
