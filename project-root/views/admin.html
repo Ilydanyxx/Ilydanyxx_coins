@@ -21,7 +21,7 @@
       e.preventDefault();
       const formData = new FormData(e.target);
       const product = Object.fromEntries(formData.entries());
-      await fetch('/api/products', {
+      await fetch('https://ilydanyxx_coins.onrender.com/api/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product)

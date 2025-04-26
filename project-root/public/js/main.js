@@ -1,4 +1,4 @@
-fetch('/api/products')
+fetch('https://ilydanyxx_coins.onrender.com/api/products')
   .then(res => res.json())
   .then(data => {
     const container = document.querySelector('.container');
